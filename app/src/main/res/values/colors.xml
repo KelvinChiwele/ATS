@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1b5e20</color>
+    <color name="colorPrimaryDark">#003300</color>
+    <color name="colorActiveNav">#ffffff</color>
+    <color name="colorActive">#5395d7</color>
+    <color name="colorAccent">#f1c40f</color>
+    <color name="colorText">#100f0f</color>
+    <color name="colorTint">#6f032101</color>
+    <color name="imageOverlay">#6f000000</color>
+    <color name="colorGrey">#CAD5D5</color>
+    <color name="green_transparent">#00000000</color>
+    <color name="colorLightGrey">#8f8d8d</color>
+    <!--  <color name="colorPrimary">#0bd98c</color>
+  <color name="colorPrimaryDark">#00a65e</color>
+  <color name="colorAccent">#ffffa5</color>
+  <color name="colorText">#62676b</color>-->
+</resources>

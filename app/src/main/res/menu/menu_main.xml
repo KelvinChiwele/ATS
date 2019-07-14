@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.techart.atszambia.MainActivity">
+
+    <item
+        android:id="@+id/action_notifications"
+        android:icon="@drawable/ic_baseline_notifications_24px"
+        app:actionLayout="@layout/action_item"
+        android:title="@string/action_notifications"
+        app:showAsAction="always" />
+</menu>

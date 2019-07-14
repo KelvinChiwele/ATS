@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.techart.atszambia.ScrollingActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            android:lineSpacingMultiplier="1.3"
+            android:textColor="@color/colorText" />
+
+        <ImageView
+            android:id="@+id/iv_sample"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:contentDescription="@string/affected_crop_image_sample"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onClick"/>
+
+        <TextView
+            android:id="@+id/tvNews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size"
+            android:lineSpacingMultiplier="1.3"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,176 @@
+<resources>
+    <string name="app_name">ATS Agrochemicals Ltd</string>
+    <string name="staff">ATS Agrochemicals Limited</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Array resources -->
+    <string-array name="problem_category">
+        <item>@string/default_problem_category</item>
+        <item>Disease</item>
+        <item>Insects</item>
+        <item>Weeds</item>
+        <item>Other</item>
+    </string-array>
+    <string name="default_problem_category">Choose problem type</string>
+
+    <string-array name="crops">
+        <item>@string/default_crop</item>
+        <item>Groundnuts</item>
+        <item>Maize</item>
+        <item>Potatoes</item>
+        <item>Sugar beans</item>
+        <item>Sun flower</item>
+        <item>Tobacco</item>
+        <item>Tomatoes</item>
+        <item>Wheat</item>
+    </string-array>
+    <string name="default_crop">Choose crop</string>
+
+    <string-array name="branches">
+        <item>All</item>
+        <item>Chipata</item>
+        <item>Choma</item>
+        <item>Lusaka, HQ</item>
+        <item>Ndola</item>
+        <item>Mazabuka</item>
+        <item>Mkushi</item>
+    </string-array>
+
+    <string-array name="chemical_types">
+        <item>@string/default_chemical</item>
+        <item>Adjuvants</item>
+        <item>Foliour Fertilizers</item>
+        <item>Fungicides</item>
+        <item>Herbicides</item>
+        <item>Insecticides</item>
+        <item>Other</item>
+    </string-array>
+    <string name="default_chemical">Choose chemical type</string>
+
+    <string-array name="categories">
+        <item>@string/default_chemical</item>
+        <item>Adjuvants</item>
+        <item>FAQ</item>
+        <item>Fertilizers</item>
+        <item>Fungicides</item>
+        <item>Herbicides</item>
+        <item>News</item>
+        <item>Insecticides</item>
+        <item>Crop Programs</item>
+        <item>Other</item>
+    </string-array>
+    <string name="default_category">Choose products type</string>
+    <!--end Array resources  end-->
+
+    <string name="action_about">About</string>
+    <string name="action_directory">Directory</string>
+    <!--activity login -->
+    <string name="prompt_email">Email (e.g example@gmail.com)</string>
+    <string name="prompt_password">Password </string>
+
+    <!--activity register -->
+    <string name="repeat_password">Repeat Password</string>
+    <string name="prompt_username">Name (e.g Kelvin Chiwele)</string>
+
+    <!--bottom menu -->
+    <string name="item_home">Home</string>
+    <string name="item_account">Account</string>
+    <string name="item_ask">Ask</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_reviews">Reviews</string>
+    <string name="log_out">Log Out</string>
+    <string name="are_you_sure">Are You Sure?</string>
+    <string name="motto">Proudly serving and Supporting Farmers</string>
+    <string name="sign_up"><![CDATA[Sign up & Log in]]></string>
+    <string name="log_in">Log in</string>
+    <string name="summary_about_atszambia">ATS Agrochemicals is a leading innovator in the distribution of specialized and
+        an extensive range of environmental safe Agro-chemicals products and services. It has an has an extensive
+        distribution network to ensure that products, and the know-how is provided when and where they are needed.</string>
+    <string name="privacy">ATS Agrochemicals  Limited cares about your Privacy. Any personal information (name, phone number,
+        email and location) or any data that you choose to share with us, like uploading a picture on our app, will
+        securely be stored in the app server. This information may / will be used by ATS Agrochemicals Limited,
+        its affiliates, partners and selected third parties in order to provide you with the best service. By using this
+        Application, you agree to the terms and conditions of this Privacy Statement.</string>
+    <string name="choose_email_client">Choose Email Client</string>
+    <string name="action_information">Action Information</string>
+    <string name="pref_header_about">About</string>
+    <string name="app_version">App Version %1$s</string>
+    <string name="title_developer">Developer</string>
+    <string name="summary_developer">Know more about developer</string>
+    <string name="url_developer">https://web.facebook.com/kelvin.chiwele</string>
+    <string name="facebook_page">Facebook</string>
+    <string name="summary_story_writer">Join us on facebook page</string>
+    <string name="directory">Directory</string>
+    <string name="summary_directory">Connect with us</string>
+    <string name="responses">Responses</string>
+    <string name="reviews">%1$s</string>
+    <string name="questions">Questions</string>
+    <string name="question">%1$d %2$s</string>
+    <string name="prompt_phone_number">Phone Number (e.g 0977000000)</string>
+    <string name="prompt_district">District (e.g Mumbwa)</string>
+    <string name="next_item">Next</string>
+    <string name="post_count"> %1$d</string>
+    <string name="ask_a_question">Ask a question</string>
+    <string name="affected_crop_image_sample">affected crop image sample</string>
+    <string name="posted_by"><![CDATA[ [?] ]]> %1$s</string>
+    <string name="respond">Respond…</string>
+    <string name="category_image">products image</string>
+    <string name="logo">logo</string>
+    <string name="background_image">background image</string>
+    <string name="send_icon">send icon</string>
+    <string name="sample_image">sample image</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="create_new">Create new</string>
+    <string name="action_notifications">Notifications</string>
+    <string name="message">News</string>
+    <string name="news_cover">message cover</string>
+    <string name="comment_icon">comment icon</string>
+    <string name="view_icon">view icon</string>
+    <string name="answers">%1$s</string>
+    <string name="tap_to_type">Tap to type...</string>
+    <string name="add_to_directory">Add to directory</string>
+    <string name="post">POST</string>
+    <string name="title">%1$s</string>
+    <string name="my_questions">My questions</string>
+    <string name="edit">EDIT</string>
+    <string name="add">ADD</string>
+    <string name="chemical_name">Chemical name</string>
+    <string name="procedure">Procedure</string>
+    <string name="pests">Pests</string>
+    <string name="update">UPDATE</string>
+    <string name="news_title">News Title</string>
+    <string name="tap_to_type_the_news">Tap to type the news</string>
+    <string name="news">News</string>
+    <string name="type_notice">Type your notice here</string>
+    <string name="user_credentials">User Credentials</string>
+    <string name="account_credentials">Account Credentials</string>
+    <string name="register_as">Register As:</string>
+    <string name="address">Address</string>
+    <string name="phone">Phone</string>
+    <string name="heading">Heading</string>
+    <string name="type_question">Type your question here</string>
+    <string name="about_us">About us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="report_issue">Report issue</string>
+    <string name="join_us">Join Us</string>
+    <string name="no_news_yet">No News yet</string>
+    <string name="just_now">just now</string>
+    <string name="initial_value">0</string>
+    <string name="no_notices">There are no new notifications</string>
+    <string name="no_comments">No comments yet, be the first</string>
+    <string name="products">Category</string>
+    <string name="no_reviews">No reviews yet, be the first</string>
+    <string name="representative">Representative</string>
+    <string name="office">Office</string>
+    <string name="email">Email</string>
+    <string name="no_questions">You haven\'t yet asked any questions</string>
+    <string name="ask">ASK</string>
+    <string name="make_admin">Make Admin</string>
+    <string name="outdated">NEW UPDATE AVAILABLE</string>
+    <string name="urgent">They are major changes that require an instant update</string>
+    <string name="update_reason">Kindly press UPDATE to get newest specification</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+
+</resources>
