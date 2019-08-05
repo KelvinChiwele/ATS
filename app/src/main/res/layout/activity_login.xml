@@ -97,6 +97,18 @@
             android:textAllCaps="true" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="OR"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:focusable="true"
+            android:clickable="true"/>
+
+        <TextView
             android:id="@+id/tv_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

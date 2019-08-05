@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_of_provinces">
+        <item>Central Province</item>
+        <item>Copperbelt Province</item>
+        <item>Eastern Province</item>
+        <item>Luapula Province</item>
+        <item>Lusaka Province</item>
+        <item>Muchinga Province</item>
+        <item>Northern Province</item>
+        <item>North-Western Province</item>
+        <item>Southern Province</item>
+        <item>Western Province</item>
+    </string-array>
+
+</resources>
