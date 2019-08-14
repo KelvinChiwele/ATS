@@ -62,7 +62,14 @@
                 android:textColor="@color/colorPrimary"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:text="@string/email"
-                android:textAllCaps="false"
-            />
+                android:textAllCaps="false"/>
+            <Button
+                android:id="@+id/bt_directions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/directions"
+                android:textAllCaps="false"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

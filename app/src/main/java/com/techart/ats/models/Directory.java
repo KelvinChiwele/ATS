@@ -9,7 +9,8 @@ public class Directory {
     private String address;
     private String email;
     private String phone;
-    private String location;
+    private String latitude;
+    private String longitude;
     private String representative;
 
     public Directory()  {
@@ -55,11 +56,19 @@ public class Directory {
         this.representative = representative;
     }
 
-    public String getLocation() {
-        return location;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

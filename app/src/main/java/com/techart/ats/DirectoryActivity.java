@@ -2,6 +2,7 @@ package com.techart.ats;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +29,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.techart.ats.constants.Constants;
 import com.techart.ats.constants.FireBaseUtils;
 import com.techart.ats.models.Directory;
+
+import java.util.Locale;
 
 import static com.techart.ats.utils.ImageUtils.hasPermissions;
 
@@ -100,17 +104,40 @@ public class DirectoryActivity extends AppCompatActivity {
                     }
                 });
 
-                viewHolder.btEmail.setOnClickListener(new View.OnClickListener() {
+                viewHolder.btDirection.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",model.getEmail(),null));
-                        startActivity(Intent.createChooser(emailIntent,"Send email..."));
+                        openMapIntent(model);
                     }
                 });
+
+
             }
         };
         rvDirectory.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    private void openMapIntent(@NonNull Directory model) {
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",Double.valueOf(model.getLatitude()) , Double.valueOf(model.getLongitude()) , model.getTown());
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        try
+        {
+            startActivity(intent);
+        }
+        catch(ActivityNotFoundException ex)
+        {
+            try
+            {
+                Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(unrestrictedIntent);
+            }
+            catch(ActivityNotFoundException innerEx)
+            {
+                Toast.makeText(DirectoryActivity.this, "Please install a maps application", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -188,6 +215,7 @@ public class DirectoryActivity extends AppCompatActivity {
         TextView tvAddress;
         Button btCall;
         Button btEmail;
+        Button btDirection;
         View mView;
 
         public DirectoryViewHolder(View itemView) {
@@ -196,7 +224,7 @@ public class DirectoryActivity extends AppCompatActivity {
             tvAddress = itemView.findViewById(R.id.tv_address);
             btCall = itemView.findViewById(R.id.bt_call);
             btEmail = itemView.findViewById(R.id.bt_email);
-
+            btDirection = itemView.findViewById(R.id.bt_directions);
             this.mView = itemView;
         }
     }

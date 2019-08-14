@@ -275,7 +275,7 @@ public final class FireBaseUtils {
         mDatabaseProductViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL)){
+            if (getUiD() != null && dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL)){
                     btViewed.setImageResource(R.drawable.ic_visibility_blue_24px);
                 } else {
                     btViewed.setImageResource(R.drawable.ic_visibility_grey_24px);
@@ -371,9 +371,4 @@ public final class FireBaseUtils {
         values.put(Constants.TIME_CREATED, ServerValue.TIMESTAMP);
         mDatabaseResourceViews.child(category).child(getUiD()).setValue(values);
     }
-
-    public static String generateDeepLink(String uid){
-        return "http://atsagro.page.link/?link=https://ats-agrochemicals-app.firebaseapp.com/"+ uid + "/&apn=com.techart.ats";
-    }
-
 }

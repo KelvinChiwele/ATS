@@ -219,5 +219,6 @@
     <string name="not_now">Not Now</string>
     <string name="rate_now">Rate Now</string>
     <string name="make_dp">Make DP</string>
+    <string name="directions">Get Directions</string>
 
 </resources>
