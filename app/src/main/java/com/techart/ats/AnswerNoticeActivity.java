@@ -97,6 +97,7 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
         linearLayoutManager.setStackFromEnd(true);
         rvAnswers.setLayoutManager(linearLayoutManager);
         init();
+        initAnswers();
     }
 
     private void initQuesstion() {
@@ -114,7 +115,6 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
                         tvTime.setText(time);
                     }
 
-                    initAnswers();
                     if (question.getAnswerCount() > 0) {
                         initAnswers();
                     } else {
@@ -141,7 +141,7 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
         FirebaseRecyclerOptions<Message> response = new FirebaseRecyclerOptions.Builder<Message>()
                                                             .setQuery(FireBaseUtils.mDatabaseAnswers.child(postKey), Message.class)
                                                             .build();
-        FirebaseRecyclerAdapter firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Message, AnswersActivity.AnswerHolder>(response) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Message, AnswersActivity.AnswerHolder>(response) {
             @NonNull
             @Override
             public AnswersActivity.AnswerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
