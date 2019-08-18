@@ -38,7 +38,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -77,7 +76,7 @@ public class AskActivity extends AppCompatActivity {
     private StorageReference filePath;
     private String userUrl;
     private Long pageCount;
-
+    private String questionUrl;
     private ProgressBar progressBar;
 
     //image
@@ -140,16 +139,20 @@ public class AskActivity extends AppCompatActivity {
         ibSample.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    onGetPermission();
-                }  else {
-                    Intent imageIntent = new Intent();
-                    imageIntent.setType("image/*");
-                    imageIntent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(imageIntent,GALLERY_REQUEST);
-                }
+                getImage();
             }
         });
+    }
+
+    private void getImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            onGetPermission();
+        }  else {
+            Intent imageIntent = new Intent();
+            imageIntent.setType("image/*");
+            imageIntent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(imageIntent,GALLERY_REQUEST);
+        }
     }
 
 
@@ -231,7 +234,8 @@ public class AskActivity extends AppCompatActivity {
                 return true;
             case R.id.action_post:
                 if (validate()){
-                    upload();
+                    questionUrl = FireBaseUtils.mDatabaseQuestions.push().getKey();
+                    isImageAttached();
                 }
                 return true;
             default:
@@ -239,33 +243,18 @@ public class AskActivity extends AppCompatActivity {
         }
     }
 
-
-    private void countQuestions(final String downloadImageUrl, final String url) {
-        FireBaseUtils.mDatabaseQuestions.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                pageCount = dataSnapshot.getChildrenCount();
-                sendPost(downloadImageUrl,url,pageCount);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-
     /**
      * Sends information to database
      * @param downloadImageUrl url of upload image
      */
-    private void sendPost(String downloadImageUrl,String url,Long questionNumber) {
+    private void sendPost(String downloadImageUrl) {
+        userUrl = FireBaseUtils.getAuthor();
         Map<String,Object> values = new HashMap<>();
         values.put(Constants.CROP, crop);
         values.put(Constants.PROBLEM_TYPE, problemType);
         values.put(Constants.QUESTION,question);
-        values.put(Constants.POST_KEY,url);
-        values.put(Constants.QUESTION_NUMBER,questionNumber);
+        values.put(Constants.POST_KEY,questionUrl);
+        //values.put(Constants.QUESTION_NUMBER,questionNumber);
         values.put(Constants.USER_URL, FireBaseUtils.getUiD());
         values.put(Constants.EMAIL, FireBaseUtils.getEmail());
         values.put(Constants.USER_NAME, userUrl);
@@ -273,7 +262,10 @@ public class AskActivity extends AppCompatActivity {
         values.put(Constants.CLIENT_CROP, FireBaseUtils.getUiD()+ " " + crop);
         values.put(Constants.IMAGE_URL,downloadImageUrl);
         values.put(Constants.TIME_CREATED, ServerValue.TIMESTAMP);
-        FireBaseUtils.mDatabaseQuestions.child(url).setValue(values);
+        FireBaseUtils.mDatabaseQuestions.child(questionUrl).setValue(values);
+        FireBaseUtils.updateNotifications("FAQ", crop, "asked a question on " + " " + problemType.toLowerCase() + " affecting " + crop, questionUrl, question,downloadImageUrl);
+        UploadUtils.makeNotification("Question sent",AskActivity.this);
+        onQuestionAsked();
     }
 
 
@@ -282,15 +274,13 @@ public class AskActivity extends AppCompatActivity {
      * Uploads image to cloud storage
      */
     private void upload() {
-        userUrl = FireBaseUtils.getAuthor();
-        final String url = FireBaseUtils.mDatabaseNews.push().getKey();
         final ProgressDialog mProgress = new ProgressDialog(AskActivity.this);
         mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgress.setMessage("Uploading photo, please wait...");
         mProgress.setProgress(0);
         mProgress.setCanceledOnTouchOutside(false);
         mProgress.show();
-        filePath = FireBaseUtils.mStorageQuestions.child(problemType + "/" + url);
+        filePath = FireBaseUtils.mStorageQuestions.child(problemType + "/" + questionUrl);
         Bitmap bmp = null;
         try {
             bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -317,12 +307,9 @@ public class AskActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    onQuestionAsked();
-                    countQuestions(task.getResult().toString(),url);
-                    FireBaseUtils.updateNotifications("FAQ", crop, "asked a question on " + " " + problemType.toLowerCase() + " affecting " + crop, url, question, task.getResult().toString());
+                    sendPost(task.getResult().toString());
                     mProgress.dismiss();
                     finish();
-
                 } else {
                     // Handle failures
                     UploadUtils.makeNotification("Image upload failed",AskActivity.this);
@@ -353,12 +340,16 @@ public class AskActivity extends AppCompatActivity {
 
     }
 
-    private boolean isImageAttached(){
-        return EditorUtils.imagePathValdator(this,realPath);
+    private void isImageAttached(){
+        if (EditorUtils.imagePathValdator(this,realPath)){
+            upload();
+        } else{
+            confirmNoImage();
+        }
     }
 
 
-    private static void onQuestionAsked() {
+    private void onQuestionAsked() {
         FireBaseUtils.mDatabaseResources.child("FAQ").runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
@@ -367,6 +358,10 @@ public class AskActivity extends AppCompatActivity {
                     return Transaction.success(mutableData);
                 }
                 products.setCount(products.getCount() + 1 );
+               // pageCount = products.getCount() + 1;
+               /* Map<String,Object> values = new HashMap<>();
+                values.put(Constants.QUESTION_NUMBER,products.getCount() + 1);
+                FireBaseUtils.mDatabaseQuestions.child(questionUrl).setValue(values);*/
                 // Set value and report transaction success
                 mutableData.setValue(products);
                 return Transaction.success(mutableData);
@@ -411,4 +406,28 @@ public class AskActivity extends AppCompatActivity {
                 .into(image);
     }
 
+    private void confirmNoImage() {
+        DialogInterface.OnClickListener dialogClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int button) {
+                        if (button == DialogInterface.BUTTON_POSITIVE){
+                            sendWithoutImage();
+                        }
+                        if (button == DialogInterface.BUTTON_NEGATIVE){
+                            getImage();
+                        }
+                    }
+                };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.without_image))
+            .setPositiveButton(getString(R.string.continue_without_pic), dialogClickListener)
+            .setNegativeButton(getString(R.string.select_image), dialogClickListener)
+            .show();
+    }
+
+    private void sendWithoutImage(){
+        sendPost(null);
+        finish();
+    }
 }

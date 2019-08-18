@@ -121,12 +121,17 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
                         progressBar.setVisibility(View.GONE);
                         tvEmpty.setVisibility(View.VISIBLE);
                     }
+                    //ToDo find way of displaying question count
 
-                    tvQuestion.setText(getResources().getString(R.string.question, question.getQuestionNumber(), question.getQuestion()));
-                    if (question.getImageUrl() != null) {
+                    // tvQuestion.setText(getResources().getString(R.string.question, question.getQuestionNumber(), question.getQuestion()));
+                    tvQuestion.setText(question.getQuestion());
+
+                    if (imageUrl != null){
                         Glide.with(AnswerNoticeActivity.this)
                                 .load(question.getImageUrl())
                                 .into(iv_sample);
+                    } else {
+                        iv_sample.setVisibility(View.GONE);
                     }
                 }
             }

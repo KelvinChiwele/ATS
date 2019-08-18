@@ -31,13 +31,9 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
-    <TextView
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_empty"
-        android:textColor="@color/colorText"
-        android:text="@string/no_notices"
-        android:layout_gravity="center"
-        android:theme="@style/PrimaryFlatButton"/>
-
+        android:id="@+id/pb_notifications"
+        android:layout_gravity="center"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

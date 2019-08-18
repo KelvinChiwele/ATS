@@ -29,6 +29,7 @@
         <item>Tobacco</item>
         <item>Tomatoes</item>
         <item>Wheat</item>
+        <item>Other</item>
     </string-array>
     <string name="default_crop">Choose crop</string>
 
@@ -220,5 +221,8 @@
     <string name="rate_now">Rate Now</string>
     <string name="make_dp">Make DP</string>
     <string name="directions">Get Directions</string>
+    <string name="without_image">You have not selected a sample picture..!</string>
+    <string name="select_image">Select Picture</string>
+    <string name="continue_without_pic">Continue Without Picture</string>
 
 </resources>

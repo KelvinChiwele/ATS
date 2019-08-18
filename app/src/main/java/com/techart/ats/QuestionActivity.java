@@ -120,9 +120,15 @@ public class QuestionActivity extends AppCompatActivity  {
                     String time = TimeUtils.timeElapsed(model.getTimeCreated());
                     viewHolder.tvTime.setText(time);
                 }
-                viewHolder.tvQuestion.setText(getResources().getString(R.string.question, model.getQuestionNumber(), model.getQuestion()));
+                //ToDo find way of displaying question count
+                //viewHolder.tvQuestion.setText(getResources().getString(R.string.question, model.getQuestionNumber(), model.getQuestion()));
+                viewHolder.tvQuestion.setText(model.getQuestion());
                 viewHolder.btAnswers.setText(getResources().getString(R.string.answers, NumberUtils.setPlurality(model.getAnswerCount(), "Response")));
-                viewHolder.setImage(getApplicationContext(), model.getImageUrl());
+                if (model.getImageUrl() != null){
+                    viewHolder.setImage(getApplicationContext(), model.getImageUrl());
+                } else {
+                    viewHolder.iv_sample.setVisibility(View.GONE);
+                }
 
                 viewHolder.btAnswers.setOnClickListener(new View.OnClickListener() {
                     @Override
