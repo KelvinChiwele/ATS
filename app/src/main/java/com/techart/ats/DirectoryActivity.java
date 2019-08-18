@@ -119,7 +119,7 @@ public class DirectoryActivity extends AppCompatActivity {
     }
 
     private void openMapIntent(@NonNull Directory model) {
-        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",Double.valueOf(model.getLatitude()) , Double.valueOf(model.getLongitude()) , model.getTown());
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",model.getLatitude() ,  model.getLongitude() , model.getTown());
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
         try
