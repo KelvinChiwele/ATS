@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.techart.ats">
+    package="com.techart.atszambia">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -10,14 +10,14 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.techart.ats.Ats"
+        android:name="com.techart.atszambia.Ats"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.techart.ats.MainActivity"
+            android:name="com.techart.atszambia.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,17 +29,17 @@
 
 
         <activity
-            android:name="com.techart.ats.setup.RegisterActivity"
+            android:name="com.techart.atszambia.setup.RegisterActivity"
             android:theme="@style/FullScreen" />
 
         <activity
-            android:name="com.techart.ats.setup.LoginActivity"
+            android:name="com.techart.atszambia.setup.LoginActivity"
             android:excludeFromRecents="true"
             android:theme="@style/FullScreen" />
 
         <activity
-            android:name="com.techart.ats.QuestionActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"
+            android:name="com.techart.atszambia.QuestionActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"
             android:label="@string/pref_header_about"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -49,21 +49,21 @@
         </activity>
 
         <activity
-            android:name="com.techart.ats.AnswersActivity"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:name="com.techart.atszambia.AnswersActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity">
 
         </activity>
 
         <activity
-            android:name="com.techart.ats.setup.PasswordResetDialog"
+            android:name="com.techart.atszambia.setup.PasswordResetDialog"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:theme="@style/dialogTheme" />
 
         <activity
-            android:name="com.techart.ats.NewsActivity"
+            android:name="com.techart.atszambia.NewsActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
@@ -78,43 +78,43 @@
         </activity>
 
         <activity
-            android:name="com.techart.ats.disease.DiseaseActivity"
+            android:name="com.techart.atszambia.disease.DiseaseActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.disease.DiseaseListActivity"/>
+            android:parentActivityName="com.techart.atszambia.disease.DiseaseListActivity"/>
 
         <activity
-            android:name="com.techart.ats.disease.DiseaseListActivity"
+            android:name="com.techart.atszambia.disease.DiseaseListActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.news.NewsListActivity"
+            android:name="com.techart.atszambia.admin.news.NewsListActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.NewsActivity" />
+            android:parentActivityName="com.techart.atszambia.NewsActivity" />
 
         <activity
-            android:name="com.techart.ats.admin.news.NewsEditActivity"
+            android:name="com.techart.atszambia.admin.news.NewsEditActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.NewsActivity" />
+            android:parentActivityName="com.techart.atszambia.NewsActivity" />
 
         <activity
-            android:name="com.techart.ats.AnswerNoticeActivity"
+            android:name="com.techart.atszambia.AnswerNoticeActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.NotificationsActivity" />
+            android:parentActivityName="com.techart.atszambia.NotificationsActivity" />
 
         <activity
-            android:name="com.techart.ats.FullImageActivity"
+            android:name="com.techart.atszambia.FullImageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="com.techart.ats.ImageActivity"
+            android:name="com.techart.atszambia.ImageActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.ats.NotificationsActivity" />
+            android:parentActivityName="com.techart.atszambia.NotificationsActivity" />
 
         <activity
-            android:name="com.techart.ats.NotificationsActivity"
+            android:name="com.techart.atszambia.NotificationsActivity"
             android:label="@string/action_notifications"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <intent-filter>
                 <action android:name="NotificationsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -122,14 +122,14 @@
         </activity>
 
         <activity
-            android:name="com.techart.ats.ScrollingActivity"
+            android:name="com.techart.atszambia.ScrollingActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="com.techart.ats.NewsActivity" />
+            android:parentActivityName="com.techart.atszambia.NewsActivity" />
 
         <activity
-            android:name="com.techart.ats.ChemicalActivity"
+            android:name="com.techart.atszambia.ChemicalActivity"
             android:label="@string/title_activity_list"
-            android:parentActivityName="com.techart.ats.MainActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="com.techart.atszambia.ChemicalsActivity" />
@@ -138,32 +138,32 @@
         </activity>
 
         <activity
-            android:name="com.techart.ats.DirectoryActivity"
+            android:name="com.techart.atszambia.DirectoryActivity"
             android:label="@string/title_activity_list"
-            android:parentActivityName="com.techart.ats.MainActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
-            android:name="com.techart.ats.AskActivity"
+            android:name="com.techart.atszambia.AskActivity"
             android:launchMode="singleTop"
             android:label="@string/ask_a_question"
-            android:parentActivityName="com.techart.ats.MainActivity" />
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
-            android:name="com.techart.ats.MyQuestionsActivity"
+            android:name="com.techart.atszambia.MyQuestionsActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="com.techart.ats.MainActivity" />
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
-            android:name="com.techart.ats.AboutActivity"
+            android:name="com.techart.atszambia.AboutActivity"
             android:launchMode="singleTop"
             android:label="@string/action_about"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="com.techart.ats.MainActivity" />
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
-            android:name="com.techart.ats.PestsActivity"
+            android:name="com.techart.atszambia.PestsActivity"
             android:launchMode="singleTop"
             android:label="@string/pests">
 
@@ -171,154 +171,154 @@
 
         <!-- [START Admin Activities] -->
         <activity
-            android:name="com.techart.ats.admin.PostDialogActivity"
+            android:name="com.techart.atszambia.admin.PostDialogActivity"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:theme="@style/dialogTheme" />
 
         <activity
-            android:name="com.techart.ats.admin.PestsPostActivity"
+            android:name="com.techart.atszambia.admin.PestsPostActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techart.ats.MainActivity" />
+                android:value="com.techart.atszambia.MainActivity" />
         </activity>
 
         <activity
-            android:name="com.techart.ats.admin.chemicals.CropPostActivity"
+            android:name="com.techart.atszambia.admin.chemicals.CropPostActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techart.ats.MainActivity" />
+                android:value="com.techart.atszambia.MainActivity" />
         </activity>
 
         <activity
-            android:name="com.techart.ats.admin.PestPostActivity"
+            android:name="com.techart.atszambia.admin.PestPostActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techart.ats.MainActivity" />
+                android:value="com.techart.atszambia.MainActivity" />
         </activity>
 
         <activity
-            android:name="com.techart.ats.admin.efekto.EfektoPestPostActivity"
+            android:name="com.techart.atszambia.admin.efekto.EfektoPestPostActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techart.ats.MainActivity" />
+                android:value="com.techart.atszambia.MainActivity" />
         </activity>
 
         <activity
-            android:name="com.techart.ats.admin.efekto.EfektoChemicalPostActivity"
+            android:name="com.techart.atszambia.admin.efekto.EfektoChemicalPostActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techart.ats.MainActivity" />
+                android:value="com.techart.atszambia.MainActivity" />
         </activity>
 
         <activity
-            android:name="com.techart.ats.admin.DirectoryPostActivity"
+            android:name="com.techart.atszambia.admin.DirectoryPostActivity"
             android:launchMode="singleTop"
             android:label="@string/add_to_directory"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.chemicals.ChemicalPostActivity"
+            android:name="com.techart.atszambia.admin.chemicals.ChemicalPostActivity"
             android:excludeFromRecents="true"
             android:noHistory="true" />
 
         <activity
-            android:name="com.techart.ats.admin.chemicals.ChemicalEditActivity"
+            android:name="com.techart.atszambia.admin.chemicals.ChemicalEditActivity"
             android:excludeFromRecents="true"
             android:noHistory="true" />
 
         <activity
-            android:name="com.techart.ats.admin.CategoryPostActivity"
+            android:name="com.techart.atszambia.admin.CategoryPostActivity"
             android:launchMode="singleTop"
             android:label="@string/add_to_directory"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.chemicals.ChemicalsListActivity"
+            android:name="com.techart.atszambia.admin.chemicals.ChemicalsListActivity"
             android:launchMode="singleTop"
             android:label="@string/add_to_directory"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.NoticePostActivity"
-            android:parentActivityName="com.techart.ats.MainActivity">
+            android:name="com.techart.atszambia.admin.NoticePostActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.techart.ats.MainActivity" />
+                android:value="com.techart.atszambia.MainActivity" />
         </activity>
 
         <activity
-            android:name="com.techart.ats.admin.news.NewsPostActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.news.NewsPostActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.disease.DiseasePostActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.disease.DiseasePostActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.disease.DiseaseListActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.disease.DiseaseListActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.casestudy.CasePostActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.casestudy.CasePostActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.disease.DiseaseEditActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.disease.DiseaseEditActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.disease.ViewDiseasesActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.disease.ViewDiseasesActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.MoreActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.MoreActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
         <activity
-            android:name="com.techart.ats.CaseActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.CaseActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.ReviewActivity"
-            android:parentActivityName="com.techart.ats.ChemicalActivity" />
+            android:name="com.techart.atszambia.ReviewActivity"
+            android:parentActivityName="com.techart.atszambia.ChemicalActivity" />
 
 
         <activity
-            android:name="com.techart.ats.CommentActivity"
+            android:name="com.techart.atszambia.CommentActivity"
             android:launchMode="singleTop"
-            android:parentActivityName="com.techart.ats.ChemicalActivity" />
+            android:parentActivityName="com.techart.atszambia.ChemicalActivity" />
 
         <activity
-            android:name="com.techart.ats.CropProgramActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.CropProgramActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.disease.DiseaseDetailActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.disease.DiseaseDetailActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
 
         <activity
-            android:name="com.techart.ats.admin.news.NewVersionActivity"
-            android:parentActivityName="com.techart.ats.MainActivity"/>
+            android:name="com.techart.atszambia.admin.news.NewVersionActivity"
+            android:parentActivityName="com.techart.atszambia.MainActivity"/>
         <activity
-            android:name="com.techart.ats.NewsNoticeActivity"
+            android:name="com.techart.atszambia.NewsNoticeActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="com.techart.ats.NotificationsActivity" />
-        <activity android:name="com.techart.ats.WebViewActivity" />
+            android:parentActivityName="com.techart.atszambia.NotificationsActivity" />
+        <activity android:name="com.techart.atszambia.WebViewActivity" />
         <!-- [END Admin Activitie] -->
 
         <!-- [START firebase_service] -->
         <service
-            android:name="com.techart.ats.service.MyFirebaseMessagingService"
+            android:name="com.techart.atszambia.service.MyFirebaseMessagingService"
             android:enabled="true"
             android:stopWithTask="false">
             <intent-filter>

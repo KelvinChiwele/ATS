@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_margin="7dp"
-    tools:context="com.techart.ats.setup.PasswordResetDialog">
+    tools:context="com.techart.atszambia.setup.PasswordResetDialog">
 
     <RelativeLayout
         android:layout_width="match_parent"

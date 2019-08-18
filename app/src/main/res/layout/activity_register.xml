@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--
     <ImageView
         android:id="@+id/scrolling_background"
         android:layout_width="0dp"
@@ -17,119 +17,107 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0" /> -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/tv_credentials"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAllCaps="true"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:maxLines="2"
+            android:gravity="center_horizontal"
             android:textColor="@color/colorAccent"
-            android:layout_marginBottom="8dp"
-            android:text="@string/user_credentials"/>
+            android:text="Register"
+            android:layout_marginBottom="16dp"/>
 
         <EditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/ic_person_black_24dp"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rect_text"
+            android:drawableLeft="@drawable/ic_person_black_24dp"
+            android:drawablePadding="8dp"
             android:hint="@string/prompt_username"
             android:inputType="textCapWords"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray" />
 
         <AutoCompleteTextView
             android:id="@+id/et_district"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/ic_baseline_place_24px"
-            android:autofillHints=""
-            android:drawablePadding="8dp"
-            android:padding="8dp"
             android:layout_marginBottom="8dp"
+            android:autofillHints=""
             android:background="@drawable/rect_text"
+            android:drawableLeft="@drawable/ic_baseline_place_24px"
+            android:drawablePadding="8dp"
             android:hint="@string/prompt_province"
             android:inputType="textCapWords"
-            android:maxLines="1" />
-
-
-        <TextView
-            android:id="@+id/tv_login_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/colorAccent"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/account_credentials"/>
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray" />
 
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
-            android:padding="8dp"
-            android:drawableLeft="@drawable/ic_baseline_email_24px"
-            android:drawablePadding="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rect_text"
+            android:drawableLeft="@drawable/ic_baseline_email_24px"
+            android:drawablePadding="8dp"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray" />
 
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/ic_baseline_lock_24px"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rect_text"
+            android:drawableLeft="@drawable/ic_baseline_lock_24px"
+            android:drawablePadding="8dp"
             android:hint="@string/prompt_password"
             android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray" />
 
         <EditText
             android:id="@+id/et_repeatPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/darker_gray"
-            android:drawableLeft="@drawable/ic_baseline_verified_user_24px"
-            android:drawablePadding="8dp"
-            android:padding="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/rect_text"
+            android:drawableLeft="@drawable/ic_baseline_verified_user_24px"
+            android:drawablePadding="8dp"
             android:hint="@string/repeat_password"
             android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:padding="8dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/tv_register"
@@ -138,10 +126,11 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/button_transparent"
             android:drawableRight="@drawable/ic_baseline_navigate_next_24px"
+            android:padding="7dp"
             android:text="@string/sign_up"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
-            android:padding="7dp"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:elevation="7dp"
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

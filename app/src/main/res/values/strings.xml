@@ -142,7 +142,7 @@
     <string name="question">%1$d. %2$s</string>
     <string name="prompt_phone_number">Phone Number (e.g 0977000000)</string>
     <string name="prompt_district">District (e.g Mumbwa)</string>
-    <string name="prompt_province">District (e.g Eastern Province)</string>
+    <string name="prompt_province">Province (e.g Eastern Province)</string>
     <string name="next_item">Next</string>
     <string name="post_count"> %1$d</string>
     <string name="post_views"> %1$s from %2$s</string>
@@ -156,7 +156,7 @@
     <string name="send_icon">send icon</string>
     <string name="sample_image">sample image</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="create_new">Sign new</string>
+    <string name="create_new">Create Account</string>
     <string name="action_notifications">Notifications</string>
     <string name="message">News</string>
     <string name="news_cover">message cover</string>

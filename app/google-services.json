@@ -1,42 +1,50 @@
 {
   "project_info": {
-    "project_number": "148861917748",
-    "firebase_url": "https://ats-agrochemicals-app.firebaseio.com",
-    "project_id": "ats-agrochemicals-app",
-    "storage_bucket": "ats-agrochemicals-app.appspot.com"
+    "project_number": "776253897833",
+    "firebase_url": "https://ats-agrochemicals-limite-1d317.firebaseio.com",
+    "project_id": "ats-agrochemicals-limite-1d317",
+    "storage_bucket": "ats-agrochemicals-limite-1d317.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:148861917748:android:def101f1cb264baa",
+        "mobilesdk_app_id": "1:776253897833:android:eeaa8901e68ad6bf",
         "android_client_info": {
-          "package_name": "com.techart.ats"
+          "package_name": "com.techart.atszambia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "148861917748-qd6bgfvdk8u83oiaij3brsgpden1d25h.apps.googleusercontent.com",
+          "client_id": "776253897833-nkj4241imbsdljtum0deac0iplk1b0jv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.techart.ats",
-            "certificate_hash": "96d8d48e74bfd3c78a25270746519b2b56acafdb"
+            "package_name": "com.techart.atszambia",
+            "certificate_hash": "b63488e0715b034f1c32af7dc84ad1e500757b8d"
           }
         },
         {
-          "client_id": "148861917748-8j8p4n4ku6p0em6u7a0qodef4hljp9nl.apps.googleusercontent.com",
+          "client_id": "776253897833-62nk8teag8uvgfh7hkmrs8f72cbjh5as.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techart.atszambia",
+            "certificate_hash": "7fe194d626ebf910e58821e4f7080042f183914f"
+          }
+        },
+        {
+          "client_id": "776253897833-3k34a3mjt5vpq94g07odgpa9u81oh726.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAPtcKv3oGS4lB5qwkCClV_EduFUhQLlcQ"
+          "current_key": "AIzaSyBlmQhypPUGGPOdSRpJAupglMlRcVolrNQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "148861917748-8j8p4n4ku6p0em6u7a0qodef4hljp9nl.apps.googleusercontent.com",
+              "client_id": "776253897833-3k34a3mjt5vpq94g07odgpa9u81oh726.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

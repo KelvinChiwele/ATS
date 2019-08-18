@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.techart.ats.disease.DiseaseDetailActivity">
+    tools:context="com.techart.atszambia.disease.DiseaseDetailActivity">
 
     <include layout="@layout/content_image" />
 
