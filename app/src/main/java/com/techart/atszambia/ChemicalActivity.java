@@ -2,16 +2,17 @@ package com.techart.atszambia;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -102,6 +103,11 @@ public class ChemicalActivity extends AppCompatActivity  {
                 final String post_key = getRef(position).getKey();
                 progressBar.setVisibility(View.GONE);
                 viewHolder.tvName.setText(model.getName());
+                if (model.getPackaging() != null){
+                    viewHolder.tvPackage.setText(model.getPackaging());
+                } else {
+                    viewHolder.tvPackage.setText("Consult");
+                }
                 viewHolder.tvDescription.setText(model.getDescription());
                 viewHolder.btReviews.setText(getResources().getString(R.string.reviews, NumberUtils.setPlurality(model.getNumReviews(),"review")));
                 viewHolder.btPests.setOnClickListener(new View.OnClickListener() {

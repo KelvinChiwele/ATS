@@ -2,22 +2,20 @@ package com.techart.atszambia;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -29,8 +27,6 @@ import com.techart.atszambia.utils.NumberUtils;
 import com.techart.atszambia.utils.TimeUtils;
 import com.techart.atszambia.viewholder.QuestionHolder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -77,6 +73,7 @@ public class MyQuestionsActivity extends AppCompatActivity  {
         });
     }
 
+    /*
     private void setupSpinner() {
         pageNumbers = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.crops)));
         Spinner spinner = findViewById(R.id.spinner);
@@ -104,7 +101,7 @@ public class MyQuestionsActivity extends AppCompatActivity  {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-    }
+    }*/
 
 
     public void setVisibility(Boolean isVisible) {
@@ -178,12 +175,10 @@ public class MyQuestionsActivity extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

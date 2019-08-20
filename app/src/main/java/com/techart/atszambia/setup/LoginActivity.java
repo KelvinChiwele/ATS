@@ -7,14 +7,13 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     // Firebase references.
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
-    private String email;
 
 
     @Override
@@ -54,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         // Set up the login form.
         mAuth = FirebaseAuth.getInstance();
         mDatabaseUsers = FireBaseUtils.mDatabaseUsers;
-        ImageView background = findViewById(R.id.scrolling_background);
+       // ImageView background = findViewById(R.id.scrolling_background);
 
         mUsername = findViewById(R.id.loginUsername);
         mPassWord = findViewById(R.id.loginPassword);
@@ -62,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView mReset = findViewById(R.id.tv_reset);
         TextView mRegister = findViewById(R.id.tv_register);
 
-        background.setColorFilter(ContextCompat.getColor(this, R.color.colorTint));
+//        background.setColorFilter(ContextCompat.getColor(this, R.color.colorTint));
       /*Glide.with(this)
             .load(R.drawable.larva)
             .into(background);*/
@@ -107,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validUserCredentials() {
         mProgress = new ProgressDialog(LoginActivity.this);
-        email = mUsername.getText().toString().trim();
+        String email = mUsername.getText().toString().trim();
         String password = mPassWord.getText().toString().trim();
         if (validate(email,password)) {
             mProgress.setMessage("Logging in ...");
@@ -167,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         if (userId != null) {
             mDatabaseUsers.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     mProgress.dismiss();
                     if (dataSnapshot.hasChild(userId)) {
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
@@ -181,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });

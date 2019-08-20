@@ -53,17 +53,15 @@
             android:id="@+id/tvUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:padding="5dp"
-            android:textStyle="bold"
             android:maxLines="1"
             android:background="@drawable/tv_account" />
 
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:maxLines="1"
             android:padding="5dp"
             android:layout_marginTop="7dp"

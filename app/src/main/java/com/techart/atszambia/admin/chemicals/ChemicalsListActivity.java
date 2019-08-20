@@ -2,21 +2,19 @@ package com.techart.atszambia.admin.chemicals;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -49,7 +47,7 @@ public class ChemicalsListActivity extends AppCompatActivity {
         // Setup spinner
         Button btList = findViewById(R.id.more);
         btList.setText("Chemicals");
-        Spinner spinner = findViewById(R.id.spinner);
+        //Spinner spinner = findViewById(R.id.spinner);
 
         rvChemicals = findViewById(R.id.rv_directory);
         rvChemicals.setHasFixedSize(true);
@@ -60,7 +58,7 @@ public class ChemicalsListActivity extends AppCompatActivity {
         ArrayAdapter<String> pagesAdapter = new ArrayAdapter<>(ChemicalsListActivity.this, R.layout.tv_filter, crops);
         pagesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pagesAdapter.notifyDataSetChanged();
-        spinner.setAdapter(pagesAdapter);
+       /* spinner.setAdapter(pagesAdapter);
 
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -78,7 +76,7 @@ public class ChemicalsListActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-        });
+        });*/
     }
 
     @Override

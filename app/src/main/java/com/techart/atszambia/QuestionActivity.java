@@ -2,22 +2,20 @@ package com.techart.atszambia;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -62,6 +60,7 @@ public class QuestionActivity extends AppCompatActivity  {
         //setupSpinner();
     }
 
+    /*
     private void setupSpinner() {
         final String[] crops = getResources().getStringArray(R.array.crops);
         Spinner spinner = findViewById(R.id.spinner);
@@ -87,7 +86,7 @@ public class QuestionActivity extends AppCompatActivity  {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-    }
+    }*/
 
     public void setVisibility(Boolean isVisible) {
         if (isVisible) {
@@ -121,9 +120,15 @@ public class QuestionActivity extends AppCompatActivity  {
                     String time = TimeUtils.timeElapsed(model.getTimeCreated());
                     viewHolder.tvTime.setText(time);
                 }
-                viewHolder.tvQuestion.setText(getResources().getString(R.string.question, model.getQuestionNumber(), model.getQuestion()));
+                //ToDo find way of displaying question count
+                //viewHolder.tvQuestion.setText(getResources().getString(R.string.question, model.getQuestionNumber(), model.getQuestion()));
+                viewHolder.tvQuestion.setText(model.getQuestion());
                 viewHolder.btAnswers.setText(getResources().getString(R.string.answers, NumberUtils.setPlurality(model.getAnswerCount(), "Response")));
-                viewHolder.setImage(getApplicationContext(), model.getImageUrl());
+                if (model.getImageUrl() != null){
+                    viewHolder.setImage(getApplicationContext(), model.getImageUrl());
+                } else {
+                    viewHolder.iv_sample.setVisibility(View.GONE);
+                }
 
                 viewHolder.btAnswers.setOnClickListener(new View.OnClickListener() {
                     @Override

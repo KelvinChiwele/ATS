@@ -6,11 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +15,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -58,11 +59,11 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
     private CardView cvTypeAnswer;
     private ProgressBar progressBar;
     private static final int GALLERY_REQUEST = 1;
-    FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
     private Uri uri;
     private StorageReference filePath;
-    int questionNumber;
+    private int questionNumber;
 
 
     private TextView tvCrop;
@@ -96,12 +97,13 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
         linearLayoutManager.setStackFromEnd(true);
         rvAnswers.setLayoutManager(linearLayoutManager);
         init();
+        initAnswers();
     }
 
     private void initQuesstion() {
         FireBaseUtils.mDatabaseQuestions.child(postKey).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Question question = dataSnapshot.getValue(Question.class);
                 if (question != null) {
                     product = question.getCrop();
@@ -113,24 +115,28 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
                         tvTime.setText(time);
                     }
 
-                    initAnswers();
                     if (question.getAnswerCount() > 0) {
                         initAnswers();
                     } else {
                         progressBar.setVisibility(View.GONE);
                         tvEmpty.setVisibility(View.VISIBLE);
                     }
+                    //ToDo find way of displaying question count
 
-                    tvQuestion.setText(getResources().getString(R.string.question, question.getQuestionNumber(), question.getQuestion()));
-                    if (question.getImageUrl() != null) {
+                    // tvQuestion.setText(getResources().getString(R.string.question, question.getQuestionNumber(), question.getQuestion()));
+                    tvQuestion.setText(question.getQuestion());
+
+                    if (imageUrl != null){
                         Glide.with(AnswerNoticeActivity.this)
                                 .load(question.getImageUrl())
                                 .into(iv_sample);
+                    } else {
+                        iv_sample.setVisibility(View.GONE);
                     }
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -140,7 +146,7 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
         FirebaseRecyclerOptions<Message> response = new FirebaseRecyclerOptions.Builder<Message>()
                                                             .setQuery(FireBaseUtils.mDatabaseAnswers.child(postKey), Message.class)
                                                             .build();
-        FirebaseRecyclerAdapter firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Message, AnswersActivity.AnswerHolder>(response) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Message, AnswersActivity.AnswerHolder>(response) {
             @NonNull
             @Override
             public AnswersActivity.AnswerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

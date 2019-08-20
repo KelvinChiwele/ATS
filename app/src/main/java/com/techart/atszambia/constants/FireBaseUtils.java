@@ -1,7 +1,8 @@
 package com.techart.atszambia.constants;
 
-import android.support.annotation.NonNull;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -127,8 +128,9 @@ public final class FireBaseUtils {
 
     public static void onNewsViewed(String post_key) {
         mDatabaseNews.child(post_key).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 News news = mutableData.getValue(News.class);
                 if (news == null) {
                     return Transaction.success(mutableData);
@@ -162,7 +164,7 @@ public final class FireBaseUtils {
     public static void setPostViewed(final String post_key, final ImageView btViewed){
         mDatabaseNewsViews.child(post_key).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL))                {
                     btViewed.setImageResource(R.drawable.ic_visibility_blue_24px);
                 } else {
@@ -170,15 +172,16 @@ public final class FireBaseUtils {
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
 
     public static void onQuestionAnswered(String post_key) {
         mDatabaseQuestions.child(post_key).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Question question = mutableData.getValue(Question.class);
                 if (question == null) {
                     return Transaction.success(mutableData);
@@ -198,8 +201,9 @@ public final class FireBaseUtils {
 
     public static void onChemicalReviewed(String post_key) {
         mDatabaseChemicals.child(post_key).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Chemical chemical = mutableData.getValue(Chemical.class);
                 if (chemical == null) {
                     return Transaction.success(mutableData);
@@ -220,8 +224,9 @@ public final class FireBaseUtils {
     //Products
     public static void onProductsViewed(final String category) {
         mDatabaseProducts.child(category).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);
@@ -246,8 +251,9 @@ public final class FireBaseUtils {
 
     public static void onProductsClicks(final String category) {
         mDatabaseProducts.child(category).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);
@@ -273,15 +279,15 @@ public final class FireBaseUtils {
     public static void setProductsViewed(final String category, final ImageView btViewed){
         mDatabaseProductViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-            if (dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL)){
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null && dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL)){
                     btViewed.setImageResource(R.drawable.ic_visibility_blue_24px);
                 } else {
                     btViewed.setImageResource(R.drawable.ic_visibility_grey_24px);
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
@@ -297,8 +303,9 @@ public final class FireBaseUtils {
     //Resources
     public static void onResourceViewed(final String category) {
         mDatabaseResources.child(category).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);
@@ -323,8 +330,9 @@ public final class FireBaseUtils {
 
     public static void onResourceClicks(final String category) {
         mDatabaseResources.child(category).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);
@@ -350,15 +358,15 @@ public final class FireBaseUtils {
     public static void setResourceViewed(final String category, final ImageView btViewed){
         mDatabaseResourceViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL)){
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (FirebaseAuth.getInstance().getCurrentUser() != null && dataSnapshot.child(getUiD()).hasChild(Constants.USER_URL)){
                     btViewed.setImageResource(R.drawable.ic_visibility_blue_24px);
                 } else {
                     btViewed.setImageResource(R.drawable.ic_visibility_grey_24px);
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
@@ -370,9 +378,4 @@ public final class FireBaseUtils {
         values.put(Constants.TIME_CREATED, ServerValue.TIMESTAMP);
         mDatabaseResourceViews.child(category).child(getUiD()).setValue(values);
     }
-
-    public static String generateDeepLink(String uid){
-        return "http://atsagro.page.link/?link=https://atszambia-agrochemicals-app.firebaseapp.com/"+ uid + "/&apn=com.techart.atszambia";
-    }
-
 }

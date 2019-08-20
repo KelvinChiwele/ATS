@@ -6,22 +6,16 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,7 +29,9 @@ import com.techart.atszambia.R;
 import com.techart.atszambia.constants.Constants;
 import com.techart.atszambia.constants.FireBaseUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,24 +39,17 @@ import java.util.Map;
  */
 public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername;
-    private EditText etPhoneNumber;
-    private EditText etDistrict;
     private EditText etLogin;
     private EditText etPassword;
     private EditText etRepeatedPassword;
     private String firstPassword;
     private String name;
-    private String phone;
-    private String district;
+    private String province;
     private String email;
     private ProgressDialog mProgress;
-    private TextView tvRegisterOption;
-    private String signingInAs;
-    private RelativeLayout rv_userType;
-
-    private static final String PHONE_NUMBER = "09[5-7][0-9]{7}";
-
-
+    private AutoCompleteTextView atvProvince;
+    String[] provinces;
+    List<String> listProvinces ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,42 +57,24 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         etUsername = findViewById(R.id.et_username);
-     //   etPhoneNumber = findViewById(R.id.et_phone);
-        etDistrict = findViewById(R.id.et_district);
-
-        rv_userType = findViewById(R.id.rv_userType);
-        tvRegisterOption = findViewById(R.id.tv_register_option);
+       // etDistrict = findViewById(R.id.et_district);
+        atvProvince =  findViewById(R.id.et_district);
         etLogin = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         etRepeatedPassword = findViewById(R.id.et_repeatPassword);
         TextView btRegister = findViewById(R.id.tv_register);
         btRegister.setClickable(true);
-        ImageView background = findViewById(R.id.scrolling_background);
+        //ImageView background = findViewById(R.id.scrolling_background);
 
-        background.setColorFilter(ContextCompat.getColor(this, R.color.colorTint));
+        provinces = getResources().getStringArray(R.array.list_of_provinces);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
+                                               (this,android.R.layout.simple_list_item_1,provinces);
+        atvProvince.setAdapter(adapter);
+        listProvinces = Arrays.asList(provinces);
+       /* background.setColorFilter(ContextCompat.getColor(this, R.color.colorTint));
         Glide.with(this)
                 .load(R.drawable.larva)
-                .into(background);
-
-        final String[] options = new String[] {"Click me","Farmer", "Stockist"};
-
-        Spinner signUpAs = findViewById(R.id.spinner);
-
-        ArrayAdapter<String> pagesAdapter = new ArrayAdapter<>(this, R.layout.tv_dropdown, options);
-        pagesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pagesAdapter.notifyDataSetChanged();
-
-        signUpAs.setAdapter(pagesAdapter);
-        signUpAs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                signingInAs = options[position];
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+                .into(background);*/
 
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,26 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(RegisterActivity.this,"Ensure that your internet is working",Toast.LENGTH_LONG ).show();
-                }
-            }
-        });
-
-        etLogin.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                email = etLogin.getText().toString().trim().trim();
-                if (email.endsWith("atszambia.co.zm")) {
-                    signingInAs = "ATS Staff";
-                    rv_userType.setVisibility(View.GONE);
-                }else {
-                    rv_userType.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -163,10 +114,10 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Map<String,Object> values = new HashMap<>();
                     values.put("name",name);
-                    values.put("phoneNumber",phone);
+                    //values.put("phoneNumber",phone);
                     values.put("imageUrl","default");
-                    values.put("district",district);
-                    values.put("signedAs",signingInAs);
+                    values.put("province",province);
+                    values.put("signedAs","Farmer");
                     values.put(Constants.TIME_CREATED, ServerValue.TIMESTAMP);
 
                     FireBaseUtils.mDatabaseUsers.child(FireBaseUtils.getUiD()).setValue(values);
@@ -213,8 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
         firstPassword =  etPassword.getText().toString().trim();
         String repeatedPassword = etRepeatedPassword.getText().toString().trim();
         name =  etUsername.getText().toString().trim();
-       // phone =  etPhoneNumber.getText().toString().trim();
-        district =  etDistrict.getText().toString().trim();
+        province =  atvProvince.getText().toString().trim();
         email = etLogin.getText().toString().trim();
         boolean valid = true;
 
@@ -225,28 +175,24 @@ public class RegisterActivity extends AppCompatActivity {
             etUsername.setError(null);
         }
 
-       /* if (phone.isEmpty()) {
-            etPhoneNumber.setError("enter a valid phone number");
-            valid = false;
-        } else if (!phone.matches(PHONE_NUMBER)){
-            etPhoneNumber.setError("check the digits");
+        if (province.isEmpty()) {
+            atvProvince.setError("Type atleast two letters of your province and choose from the displayed list");
             valid = false;
         } else {
-            etUsername.setError(null);
-        }*/
+            atvProvince.setError(null);
+        }
 
-        if (district.isEmpty()) {
-            etDistrict.setError("enter a valid name for better service");
+        if (!listProvinces.contains(province)) {
+            atvProvince.setError("Type atleast two letters of your province and choose from the displayed list e.g Ea");
             valid = false;
         } else {
-            etUsername.setError(null);
+            atvProvince.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etLogin.setError("enter a valid email address");
             valid = false;
         } else {
-            //setDropDownVisibility(email);
             etLogin.setError(null);
         }
 
@@ -262,15 +208,6 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             etRepeatedPassword.setError("password does not match first password");
             valid = false;
-        }
-
-        if (email.endsWith("atszambia.co.zm")) {
-            return valid;
-        }else if (signingInAs.equals("Click me")) {
-            tvRegisterOption.setError("Click to select either ATS staff, Farmer or stockist");
-            valid = false;
-        } else {
-            tvRegisterOption.setError(null);
         }
         return valid;
     }

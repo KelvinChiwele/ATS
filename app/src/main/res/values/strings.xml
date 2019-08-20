@@ -29,6 +29,7 @@
         <item>Tobacco</item>
         <item>Tomatoes</item>
         <item>Wheat</item>
+        <item>Other</item>
     </string-array>
     <string name="default_crop">Choose crop</string>
 
@@ -141,6 +142,7 @@
     <string name="question">%1$d. %2$s</string>
     <string name="prompt_phone_number">Phone Number (e.g 0977000000)</string>
     <string name="prompt_district">District (e.g Mumbwa)</string>
+    <string name="prompt_province">Province (e.g Eastern Province)</string>
     <string name="next_item">Next</string>
     <string name="post_count"> %1$d</string>
     <string name="post_views"> %1$s from %2$s</string>
@@ -154,7 +156,7 @@
     <string name="send_icon">send icon</string>
     <string name="sample_image">sample image</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="create_new">Create new</string>
+    <string name="create_new">Create Account</string>
     <string name="action_notifications">Notifications</string>
     <string name="message">News</string>
     <string name="news_cover">message cover</string>
@@ -218,5 +220,8 @@
     <string name="not_now">Not Now</string>
     <string name="rate_now">Rate Now</string>
     <string name="make_dp">Make DP</string>
-
+    <string name="directions">Get Directions</string>
+    <string name="without_image">You have not selected a sample picture..!</string>
+    <string name="select_image">Select Picture</string>
+    <string name="continue_without_pic">Continue Without Picture</string>
 </resources>

@@ -2,10 +2,11 @@ package com.techart.atszambia.utils;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 /**
  * Validates entries on UI components

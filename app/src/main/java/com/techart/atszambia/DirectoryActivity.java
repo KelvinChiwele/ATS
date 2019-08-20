@@ -2,30 +2,35 @@ package com.techart.atszambia;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.techart.atszambia.constants.Constants;
 import com.techart.atszambia.constants.FireBaseUtils;
 import com.techart.atszambia.models.Directory;
+
+import java.util.Locale;
 
 import static com.techart.atszambia.utils.ImageUtils.hasPermissions;
 
@@ -38,7 +43,6 @@ public class DirectoryActivity extends AppCompatActivity {
     private String phoneNumber;
     FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
-    private RecyclerView.LayoutManager recyclerViewLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +58,7 @@ public class DirectoryActivity extends AppCompatActivity {
         rvDirectory = findViewById(R.id.rv_directory);
         rvDirectory.setHasFixedSize(true);
 
-        recyclerViewLayoutManager = new GridLayoutManager(this,2);
+        RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(this, 2);
         rvDirectory.setLayoutManager(recyclerViewLayoutManager);
         bindView();
     }
@@ -99,17 +103,40 @@ public class DirectoryActivity extends AppCompatActivity {
                     }
                 });
 
-                viewHolder.btEmail.setOnClickListener(new View.OnClickListener() {
+                viewHolder.btDirection.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",model.getEmail(),null));
-                        startActivity(Intent.createChooser(emailIntent,"Send email..."));
+                        openMapIntent(model);
                     }
                 });
+
+
             }
         };
         rvDirectory.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    private void openMapIntent(@NonNull Directory model) {
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)",model.getLatitude() ,  model.getLongitude() , model.getTown());
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        try
+        {
+            startActivity(intent);
+        }
+        catch(ActivityNotFoundException ex)
+        {
+            try
+            {
+                Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(unrestrictedIntent);
+            }
+            catch(ActivityNotFoundException innerEx)
+            {
+                Toast.makeText(DirectoryActivity.this, "Please install a maps application", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
@@ -144,7 +171,7 @@ public class DirectoryActivity extends AppCompatActivity {
      * @param grantResults granted results
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:"+ phoneNumber));
@@ -187,6 +214,7 @@ public class DirectoryActivity extends AppCompatActivity {
         TextView tvAddress;
         Button btCall;
         Button btEmail;
+        Button btDirection;
         View mView;
 
         public DirectoryViewHolder(View itemView) {
@@ -195,7 +223,7 @@ public class DirectoryActivity extends AppCompatActivity {
             tvAddress = itemView.findViewById(R.id.tv_address);
             btCall = itemView.findViewById(R.id.bt_call);
             btEmail = itemView.findViewById(R.id.bt_email);
-
+            btDirection = itemView.findViewById(R.id.bt_directions);
             this.mView = itemView;
         }
     }

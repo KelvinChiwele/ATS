@@ -16,21 +16,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +30,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.MenuItemCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -54,12 +53,16 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.techart.atszambia.admin.PostDialogActivity;
@@ -71,7 +74,6 @@ import com.techart.atszambia.models.ImageUrl;
 import com.techart.atszambia.models.Products;
 import com.techart.atszambia.models.Stamp;
 import com.techart.atszambia.models.Users;
-import com.techart.atszambia.models.Version;
 import com.techart.atszambia.others.AppRater;
 import com.techart.atszambia.setup.LoginActivity;
 import com.techart.atszambia.utils.ImageUtils;
@@ -83,6 +85,7 @@ import com.techart.atszambia.viewholder.ProductsViewHolder;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static com.techart.atszambia.utils.ImageUtils.hasPermissions;
 
@@ -90,9 +93,11 @@ import static com.techart.atszambia.utils.ImageUtils.hasPermissions;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth.AuthStateListener mAuthListener;
-    FirebaseRecyclerAdapter firebaseRecyclerAdapterResources;
-    FirebaseRecyclerAdapter firebaseRecyclerAdapterProducts;
-    FirebaseRecyclerAdapter firebaseRecyclerAdapterDisease;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapterResources;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapterProducts;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapterDisease;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+    private static final String VERSION_CODE_KEY = "latest_app_version";
     private FirebaseAuth mAuth;
     private Intent intent;
     private boolean isAttached;
@@ -101,7 +106,6 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView rvCategory;
     private RecyclerView rvDisease;
     private RecyclerView rvInformation;
-    private int versionCode = 0;
     private FloatingActionButton fab;
     private boolean mProcessView;
     private ProgressBar progressBarInformation;
@@ -110,12 +114,11 @@ public class MainActivity extends AppCompatActivity
     private int mStamp;
     private int lastAccessedTime;
     private TextView textCartItemCount;
-    private int mCartItemCount = 0;
-    RelativeLayout linearLayout;
-    TextView tvUpload;
-    ImageButton ibDp;
-    ImageButton ibCancel;
-    StorageReference filePath;
+    private RelativeLayout linearLayout;
+    private TextView tvUpload;
+    private ImageButton ibDp;
+    private ImageButton ibCancel;
+    private StorageReference filePath;
 
 
     //image
@@ -169,6 +172,11 @@ public class MainActivity extends AppCompatActivity
         });
 
         haveNetworkConnection();
+        //Setting the Default Map Value with the current version code
+        HashMap<String, Object> firebaseDefaultMap = new HashMap<>();
+        firebaseDefaultMap.put(VERSION_CODE_KEY, getCurrentVersionCode());
+        mFirebaseRemoteConfig.setDefaultsAsync(firebaseDefaultMap);
+        remoteConfigSetUp();
         Button resources = findViewById(R.id.btn_information);
         Button chemicals = findViewById(R.id.btn_chemicals);
         Button diseases = findViewById(R.id.btn_diseases);
@@ -224,6 +232,7 @@ public class MainActivity extends AppCompatActivity
         blink();
         AppRater.app_launched(MainActivity.this);
         FirebaseMessaging.getInstance().subscribeToTopic("all");
+
     }
 
     private void setupDrawer(Toolbar toolbar) {
@@ -300,10 +309,8 @@ public class MainActivity extends AppCompatActivity
                             .load(R.drawable.placeholder)
                             .into(new SimpleTarget<Drawable>() {
                                 @Override
-                                public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                        linearLayout.setBackground(resource);
-                                    }
+                                public void onResourceReady(@NonNull Drawable resource, Transition<? super Drawable> transition) {
+                                    linearLayout.setBackground(resource);
                                 }
                             });
                 }
@@ -317,6 +324,65 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    private  void remoteConfigSetUp(){
+        //Setting Developer Mode enabled to fast retrieve the values
+        mFirebaseRemoteConfig.setConfigSettingsAsync(
+                new FirebaseRemoteConfigSettings.Builder().setMinimumFetchIntervalInSeconds(3600L)
+                        .build());
+
+        //Fetching the values here
+        mFirebaseRemoteConfig.fetch().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    mFirebaseRemoteConfig.activate();
+                    //calling function to check if new version is available or not
+                    int latestAppVersion = (int) mFirebaseRemoteConfig.getLong(VERSION_CODE_KEY);
+                    Toast.makeText(MainActivity.this, "===> " + latestAppVersion,
+                            Toast.LENGTH_SHORT).show();
+                    if (latestAppVersion > getCurrentVersionCode()) {
+                        //showUpdateAppDialog();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Something went wrong please try again",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private int getCurrentVersionCode() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Could not read app version code", Toast.LENGTH_LONG).show();
+        }
+        return -1;
+    }
+
+    private void showUpdateAppDialog() {
+        if (isAttached){
+            DialogInterface.OnClickListener dialogClickListener =
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int button) {
+                            if (button == DialogInterface.BUTTON_POSITIVE){
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.techart.atszambia"));
+                                startActivity(browserIntent);
+                            }
+                        }
+                    };
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.outdated))
+                    .setMessage(getString(R.string.urgent))
+                    .setCancelable(false)
+                    .setPositiveButton("UPDATE", dialogClickListener)
+                    .show();
+        }
+
     }
 
     /**
@@ -375,7 +441,7 @@ public class MainActivity extends AppCompatActivity
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             FireBaseUtils.mDatabaseUsers.child(FireBaseUtils.getUiD()).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Users users = dataSnapshot.getValue(Users.class);
                     if (users.getImageUrl() != null && users.getImageUrl().length() > 7) {
                         currentPhotoUrl = users.getImageUrl();
@@ -386,7 +452,7 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
         }
@@ -418,7 +484,7 @@ public class MainActivity extends AppCompatActivity
      * @param grantResults granted results
      */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(galleryIntent, GALLERY_REQUEST);
@@ -453,7 +519,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void setIvImage(String ivImage) {
+    private void setIvImage(String ivImage) {
         RequestOptions options = new RequestOptions()
                 .fitCenter();
         Glide.with(this)
@@ -461,10 +527,8 @@ public class MainActivity extends AppCompatActivity
                 .apply(options)
                 .into(new SimpleTarget<Drawable>() {
                     @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            linearLayout.setBackground(resource);
-                        }
+                    public void onResourceReady(@NonNull Drawable resource, Transition<? super Drawable> transition) {
+                        linearLayout.setBackground(resource);
                     }
                 });
     }
@@ -520,7 +584,7 @@ public class MainActivity extends AppCompatActivity
         mProcessView = true;
         FireBaseUtils.mDatabaseProductViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (mProcessView) {
                     if (FirebaseAuth.getInstance().getCurrentUser() != null){
                         if (dataSnapshot.hasChild(FireBaseUtils.getUiD())) {
@@ -538,7 +602,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
@@ -547,7 +611,7 @@ public class MainActivity extends AppCompatActivity
         mProcessView = true;
         FireBaseUtils.mDatabaseResourceViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (mProcessView) {
                     if (FirebaseAuth.getInstance().getCurrentUser() != null){
                         if (dataSnapshot.hasChild(FireBaseUtils.getUiD())) {
@@ -699,8 +763,6 @@ public class MainActivity extends AppCompatActivity
         firebaseRecyclerAdapterResources.startListening();
         firebaseRecyclerAdapterProducts.startListening();
         firebaseRecyclerAdapterDisease.startListening();
-        getVersionCode();
-        checkVersion();
         mStamp = mPref.getInt(Constants.STAMP_KEY,0);
         stamp();
     }
@@ -716,9 +778,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -780,16 +841,6 @@ public class MainActivity extends AppCompatActivity
         return body;
     }
 
-    @Nullable
-    private int getVersionCode() {
-        try {
-            versionCode = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            Toast.makeText(this, "Could not read app version code", Toast.LENGTH_LONG).show();
-        }
-        return versionCode;
-    }
-
     /**
      * Checks for internet connection
      */
@@ -831,6 +882,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setupBadge() {
         if (textCartItemCount != null) {
+            int mCartItemCount = 0;
             if (mCartItemCount == 0) {
                 if (textCartItemCount.getVisibility() != View.GONE) {
                     textCartItemCount.setVisibility(View.GONE);
@@ -852,42 +904,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.action_notifications:
-                intent = new Intent(MainActivity.this, NotificationsActivity.class);
-                intent.putExtra(Constants.STAMP_KEY,lastAccessedTime);
-                startActivity(intent);
-                break;
+        if (id == R.id.action_notifications) {
+            intent = new Intent(MainActivity.this, NotificationsActivity.class);
+            intent.putExtra(Constants.STAMP_KEY, lastAccessedTime);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Loads the list of staff from database to Shared preferences for easy access
-     */
-    private void checkVersion() {
-        FireBaseUtils.mDatabaseVersion.child("-LIaZ1jO8SXe4peE3JAc").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Version version = dataSnapshot.getValue(Version.class);
-                if (versionCode < Integer.valueOf(version.getVersion())) {
-                    switch (version.getStatus()) {
-                        case "Urgent":
-                            outDatedVersionUrgent();
-                            break;
-                        case "Optional":
-                            outDatedVersion();
-                            break;
-                        default:
-                    }
-                }
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     /**
@@ -896,7 +918,7 @@ public class MainActivity extends AppCompatActivity
     private void stamp() {
         FireBaseUtils.mDatabaseStamp.child("-LIaZ1jO8SXe4peE3JAc").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Stamp stamp = dataSnapshot.getValue(Stamp.class);
                 lastAccessedTime = stamp.getTimeCreated().intValue();
                 if (textCartItemCount != null) {
@@ -908,7 +930,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
@@ -983,7 +1005,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void setIvImage(Uri ivImage) {
+    private void setIvImage(Uri ivImage) {
         tvUpload.setVisibility(View.VISIBLE);
         ibDp.setVisibility(View.GONE);
         ibCancel.setVisibility(View.VISIBLE);
@@ -991,10 +1013,8 @@ public class MainActivity extends AppCompatActivity
                 .load(ivImage)
                 .into(new SimpleTarget<Drawable>() {
                     @Override
-                    public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                            linearLayout.setBackground(resource);
-                        }
+                    public void onResourceReady(@NonNull Drawable resource, Transition<? super Drawable> transition) {
+                        linearLayout.setBackground(resource);
                     }
                 });
     }

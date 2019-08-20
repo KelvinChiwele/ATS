@@ -10,6 +10,7 @@ import java.util.List;
 public class Chemical {
     private String name;
     private String category;
+    private String packaging;
     private String description;
     private String imageUrl;
     private Long timeCreated;
@@ -84,5 +85,13 @@ public class Chemical {
 
     public void setPests(List<String> pests) {
         this.pests = pests;
+    }
+
+    public String getPackaging() {
+        return packaging;
+    }
+
+    public void setPackaging(String packaging) {
+        this.packaging = packaging;
     }
 }

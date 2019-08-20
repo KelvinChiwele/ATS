@@ -5,11 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
@@ -17,8 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -39,9 +41,9 @@ import static com.techart.atszambia.constants.Constants.STAMP_KEY;
  */
 public class NotificationsActivity extends AppCompatActivity {
     private RecyclerView rvNotice;
-    private TextView tvEmpty;
     private ArrayList<String> contents;
     FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private ProgressBar progressBarNotifications;
 
 
     @Override
@@ -56,13 +58,18 @@ public class NotificationsActivity extends AppCompatActivity {
         int lastAccessedPage = getIntent().getIntExtra(Constants.STAMP_KEY, 0);
         setTimeAccessed(lastAccessedPage);
         contents = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.chemical)));
-
-        tvEmpty = findViewById(R.id.tv_empty);
+        progressBarNotifications = findViewById(R.id.pb_notifications);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         rvNotice.setLayoutManager(linearLayoutManager);
         bindView();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        firebaseRecyclerAdapter.startListening();
     }
 
     private void setTimeAccessed(int lastAccessedPage) {
@@ -87,18 +94,18 @@ public class NotificationsActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull NoticeViewHolder viewHolder, int position, @NonNull final Notice model) {
+                progressBarNotifications.setVisibility(View.GONE);
                 viewHolder.makePortionBold(getAuthor(model) + " " + model.getAction(), getAuthor(model));
-                tvEmpty.setVisibility(View.GONE);
                 if (model.getTimeCreated() != null) {
                     String time = TimeUtils.timeElapsed( model.getTimeCreated());
                     viewHolder.tvTime.setText(time);
                 }
-                if (FireBaseUtils.staff.contains(model.getEmail())) {
-                    viewHolder.setIvImage(NotificationsActivity.this, R.drawable.logo);
-                } else if (model.getImageUrl() != null && !model.getImageUrl().equals("default")) {
+                if (model.getImageUrl() != null && !model.getImageUrl().equals("default")) {
                     viewHolder.setIvImage(NotificationsActivity.this, model.getImageUrl());
-                } else {
+                } else if (model.getImageUrl() == null){
                     viewHolder.setIvImage(NotificationsActivity.this, R.drawable.placeholder);
+                } else if (FireBaseUtils.staff.contains(model.getEmail())) {
+                    viewHolder.setIvImage(NotificationsActivity.this, R.drawable.logo);
                 }
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,12 +117,6 @@ public class NotificationsActivity extends AppCompatActivity {
         };
         rvNotice.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        firebaseRecyclerAdapter.startListening();
     }
 
     private String getAuthor(Notice notice) {

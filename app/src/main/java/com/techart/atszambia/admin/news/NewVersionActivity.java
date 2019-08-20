@@ -1,12 +1,13 @@
 package com.techart.atszambia.admin.news;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.techart.atszambia.R;
 import com.techart.atszambia.constants.FireBaseUtils;
@@ -43,10 +44,8 @@ public class NewVersionActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.action_update:
-                startPosting();
-                break;
+        if (id == R.id.action_update) {
+            startPosting();
         }
         return super.onOptionsItemSelected(item);
     }

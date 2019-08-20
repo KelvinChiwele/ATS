@@ -4,11 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +16,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -134,7 +135,6 @@ public class PestsPostActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_post) {
             startPosting();
             return true;
@@ -154,7 +154,6 @@ public class PestsPostActivity extends AppCompatActivity {
         values.put(Constants.NAME,name);
         values.put(Constants.IMAGE_URL,downloadImageUrl);
         values.put(Constants.DESCRIPTION,"Pest");
-        values.put(Constants.IMAGE_URL,downloadImageUrl);
         FireBaseUtils.mDatabasePests.child(url).setValue(values);
         Toast.makeText(PestsPostActivity.this, "Item Posted",LENGTH_LONG).show();
         finish();

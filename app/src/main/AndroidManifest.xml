@@ -23,9 +23,21 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="ats-agrochemicals-limite-1d317.firebaseapp.com"
+                    android:pathPattern="/project/" />
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
 
         <activity
@@ -72,7 +84,7 @@
 
                 <data
                     android:scheme="https"
-                    android:host="ats-agrochemicals-limite-1d317.firebaseapp.com"
+                    android:host="ats-agrochemicals-limite-1d317.web.app"
                     android:pathPrefix="/project/" />
             </intent-filter>
         </activity>
@@ -80,12 +92,12 @@
         <activity
             android:name="com.techart.atszambia.disease.DiseaseActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.atszambia.disease.DiseaseListActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.disease.DiseaseListActivity" />
 
         <activity
             android:name="com.techart.atszambia.disease.DiseaseListActivity"
             android:label="@string/message"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.news.NewsListActivity"
@@ -141,7 +153,7 @@
             android:name="com.techart.atszambia.DirectoryActivity"
             android:label="@string/title_activity_list"
             android:parentActivityName="com.techart.atszambia.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name="com.techart.atszambia.AskActivity"
@@ -225,7 +237,7 @@
             android:name="com.techart.atszambia.admin.DirectoryPostActivity"
             android:launchMode="singleTop"
             android:label="@string/add_to_directory"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.chemicals.ChemicalPostActivity"
@@ -241,13 +253,13 @@
             android:name="com.techart.atszambia.admin.CategoryPostActivity"
             android:launchMode="singleTop"
             android:label="@string/add_to_directory"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.chemicals.ChemicalsListActivity"
             android:launchMode="singleTop"
             android:label="@string/add_to_directory"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.NoticePostActivity"
@@ -259,34 +271,34 @@
 
         <activity
             android:name="com.techart.atszambia.admin.news.NewsPostActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.disease.DiseasePostActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.disease.DiseaseListActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.casestudy.CasePostActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.disease.DiseaseEditActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.disease.ViewDiseasesActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.MoreActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
         <activity
             android:name="com.techart.atszambia.CaseActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.ReviewActivity"
@@ -300,15 +312,15 @@
 
         <activity
             android:name="com.techart.atszambia.CropProgramActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.disease.DiseaseDetailActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
 
         <activity
             android:name="com.techart.atszambia.admin.news.NewVersionActivity"
-            android:parentActivityName="com.techart.atszambia.MainActivity"></activity>
+            android:parentActivityName="com.techart.atszambia.MainActivity" />
         <activity
             android:name="com.techart.atszambia.NewsNoticeActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -320,7 +332,6 @@
         <service
             android:name="com.techart.atszambia.service.MyFirebaseMessagingService"
             android:enabled="true"
-            android:exported="true"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
