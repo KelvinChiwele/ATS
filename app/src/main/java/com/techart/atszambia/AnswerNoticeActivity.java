@@ -59,11 +59,11 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
     private CardView cvTypeAnswer;
     private ProgressBar progressBar;
     private static final int GALLERY_REQUEST = 1;
-    FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
     private Uri uri;
     private StorageReference filePath;
-    int questionNumber;
+    private int questionNumber;
 
 
     private TextView tvCrop;
@@ -103,7 +103,7 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
     private void initQuesstion() {
         FireBaseUtils.mDatabaseQuestions.child(postKey).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Question question = dataSnapshot.getValue(Question.class);
                 if (question != null) {
                     product = question.getCrop();
@@ -136,7 +136,7 @@ public class AnswerNoticeActivity extends AppCompatActivity implements View.OnCl
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });

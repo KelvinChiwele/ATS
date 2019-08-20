@@ -152,8 +152,9 @@ public class ChemicalPostActivity extends AppCompatActivity {
 
     private static void onChemicalPosted(String chemicalType, String post_key) {
         FireBaseUtils.mDatabaseProducts.child(chemicalType).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);
@@ -221,9 +222,7 @@ public class ChemicalPostActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
-        if (resultCode == RESULT_OK){
-           // category = data.getStringExtra(Constants.CATEGORY);
-        }
+        // category = data.getStringExtra(Constants.CATEGORY);
     }
 
 

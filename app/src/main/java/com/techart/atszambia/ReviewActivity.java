@@ -140,9 +140,8 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_send:
-                sendComment();
+        if (v.getId() == R.id.iv_send) {
+            sendComment();
         }
     }
 
@@ -152,7 +151,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
         if (canSend(review)) {
             FireBaseUtils.mDatabaseReviews.child(category).child(post_key).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (!isSent){
                         imageUrl = ImageUrl.getInstance().getImageUrl();
                         DatabaseReference newComment = FireBaseUtils.mDatabaseReviews.child(category).child(post_key).push();
@@ -174,7 +173,7 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
@@ -217,8 +216,9 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
     private void onReviewSent() {
         FireBaseUtils.mDatabaseChemicals.child(category).child(post_key).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Chemical chemical = mutableData.getValue(Chemical.class);
                 if (chemical == null) {
                     return Transaction.success(mutableData);
@@ -238,15 +238,13 @@ public class ReviewActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case android.R.id.home:
-                Intent data = new Intent();
-                data.putExtra(Constants.CATEGORY,category);
-                setResult(RESULT_OK);
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            Intent data = new Intent();
+            data.putExtra(Constants.CATEGORY, category);
+            setResult(RESULT_OK);
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

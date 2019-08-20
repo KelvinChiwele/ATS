@@ -153,8 +153,9 @@ public class EfektoChemicalPostActivity extends AppCompatActivity {
 
     public static void onChemicalPosted(String chemicalType, String post_key) {
         FireBaseUtils.mDatabaseProducts.child(chemicalType).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);

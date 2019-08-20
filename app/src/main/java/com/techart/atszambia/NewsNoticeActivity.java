@@ -92,7 +92,7 @@ public class NewsNoticeActivity extends AppCompatActivity {
                         mProcessView = true;
                         FireBaseUtils.mDatabaseNewsViews.child(post_key).addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (mProcessView) {
                                     if (!dataSnapshot.hasChild(FireBaseUtils.getUiD())) {
                                         FireBaseUtils.addNewsView(model, post_key);
@@ -104,7 +104,7 @@ public class NewsNoticeActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
                             }
                         });

@@ -318,7 +318,7 @@ public class AskActivity extends AppCompatActivity {
         });
         uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                 int currentProgress = (int) (100*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
                 mProgress.setProgress(currentProgress);
             }
@@ -351,8 +351,9 @@ public class AskActivity extends AppCompatActivity {
 
     private void onQuestionAsked() {
         FireBaseUtils.mDatabaseResources.child("FAQ").runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);

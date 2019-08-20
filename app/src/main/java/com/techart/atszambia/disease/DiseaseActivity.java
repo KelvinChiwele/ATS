@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -62,7 +63,7 @@ public class DiseaseActivity extends AppCompatActivity {
     private void loadProfilePicture(){
         FireBaseUtils.mDatabaseUsers.child(FireBaseUtils.getUiD()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Users users = dataSnapshot.getValue(Users.class);
                 if (users.getImageUrl() != null && users.getImageUrl().length() > 7) {
                     currentPhotoUrl = users.getImageUrl();
@@ -72,7 +73,7 @@ public class DiseaseActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }

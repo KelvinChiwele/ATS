@@ -64,7 +64,7 @@ public class AnswersActivity extends AppCompatActivity implements View.OnClickLi
     private int count;
     private StorageReference filePath;
     private int questionNumber;
-    FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
 
     @Override
@@ -355,13 +355,11 @@ public class AnswersActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

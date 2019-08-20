@@ -56,10 +56,8 @@ public class NewsEditActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.action_update:
-                startPosting();
-                break;
+        if (id == R.id.action_update) {
+            startPosting();
         }
         return super.onOptionsItemSelected(item);
     }

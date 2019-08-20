@@ -43,7 +43,6 @@ public class DirectoryActivity extends AppCompatActivity {
     private String phoneNumber;
     FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
-    private RecyclerView.LayoutManager recyclerViewLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,7 @@ public class DirectoryActivity extends AppCompatActivity {
         rvDirectory = findViewById(R.id.rv_directory);
         rvDirectory.setHasFixedSize(true);
 
-        recyclerViewLayoutManager = new GridLayoutManager(this,2);
+        RecyclerView.LayoutManager recyclerViewLayoutManager = new GridLayoutManager(this, 2);
         rvDirectory.setLayoutManager(recyclerViewLayoutManager);
         bindView();
     }

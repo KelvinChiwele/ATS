@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     // Firebase references.
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
-    private String email;
 
 
     @Override
@@ -106,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validUserCredentials() {
         mProgress = new ProgressDialog(LoginActivity.this);
-        email = mUsername.getText().toString().trim();
+        String email = mUsername.getText().toString().trim();
         String password = mPassWord.getText().toString().trim();
         if (validate(email,password)) {
             mProgress.setMessage("Logging in ...");
@@ -166,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         if (userId != null) {
             mDatabaseUsers.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     mProgress.dismiss();
                     if (dataSnapshot.hasChild(userId)) {
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
@@ -180,7 +179,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });

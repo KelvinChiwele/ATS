@@ -257,8 +257,9 @@ public class NewsPostActivity extends AppCompatActivity {
 
     private static void onNewsPosted() {
         FireBaseUtils.mDatabaseProducts.child("News").runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 Products products = mutableData.getValue(Products.class);
                 if (products == null) {
                     return Transaction.success(mutableData);

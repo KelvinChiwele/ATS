@@ -103,7 +103,7 @@ public class MoreActivity extends AppCompatActivity{
         mProcessView = true;
         FireBaseUtils.mDatabaseProductViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (mProcessView) {
                     if (dataSnapshot.hasChild(FireBaseUtils.getUiD())) {
                         FireBaseUtils.onProductsClicks(category);
@@ -117,7 +117,7 @@ public class MoreActivity extends AppCompatActivity{
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
@@ -126,7 +126,7 @@ public class MoreActivity extends AppCompatActivity{
         mProcessView = true;
         FireBaseUtils.mDatabaseResourceViews.child(category).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (mProcessView) {
                     if (dataSnapshot.hasChild(FireBaseUtils.getUiD())) {
                         FireBaseUtils.onResourceClicks(category);
@@ -140,7 +140,7 @@ public class MoreActivity extends AppCompatActivity{
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }

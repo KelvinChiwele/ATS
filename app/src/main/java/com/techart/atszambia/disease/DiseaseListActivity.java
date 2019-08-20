@@ -25,7 +25,6 @@ import com.techart.atszambia.viewholder.DiseaseViewHolder;
  * Will be available to admins for postings articles
  */
 public class DiseaseListActivity extends AppCompatActivity {
-    private RecyclerView rvBacterial;
     private RecyclerView rvFungal;
     private RecyclerView rvPhysiological;
 
@@ -42,7 +41,7 @@ public class DiseaseListActivity extends AppCompatActivity {
         String crop = getIntent().getStringExtra(Constants.CROP_NAME);
         setTitle(crop);
 
-        rvBacterial = findViewById(R.id.rv_bacterial);
+        RecyclerView rvBacterial = findViewById(R.id.rv_bacterial);
         rvPhysiological = findViewById(R.id.rv_physiological);
         rvFungal = findViewById(R.id.rv_fungal);
 

@@ -159,7 +159,7 @@ public class CommentActivity extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
@@ -190,8 +190,9 @@ public class CommentActivity extends AppCompatActivity {
 
     private void setCommentCount() {
         FireBaseUtils.mDatabaseNews.child(post_key).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
+            public Transaction.Result doTransaction(@NonNull MutableData mutableData) {
                 News news = mutableData.getValue(News.class);
                 if (news == null) {
                     return Transaction.success(mutableData);

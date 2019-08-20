@@ -59,9 +59,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_send:
-                exit();
+        if (v.getId() == R.id.iv_send) {
+            exit();
         }
     }
 

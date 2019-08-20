@@ -135,7 +135,6 @@ public class PestsPostActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_post) {
             startPosting();
             return true;
@@ -155,7 +154,6 @@ public class PestsPostActivity extends AppCompatActivity {
         values.put(Constants.NAME,name);
         values.put(Constants.IMAGE_URL,downloadImageUrl);
         values.put(Constants.DESCRIPTION,"Pest");
-        values.put(Constants.IMAGE_URL,downloadImageUrl);
         FireBaseUtils.mDatabasePests.child(url).setValue(values);
         Toast.makeText(PestsPostActivity.this, "Item Posted",LENGTH_LONG).show();
         finish();
