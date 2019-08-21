@@ -340,13 +340,11 @@ public class MainActivity extends AppCompatActivity
                     mFirebaseRemoteConfig.activate();
                     //calling function to check if new version is available or not
                     int latestAppVersion = (int) mFirebaseRemoteConfig.getLong(VERSION_CODE_KEY);
-                    Toast.makeText(MainActivity.this, "===> " + latestAppVersion,
-                            Toast.LENGTH_SHORT).show();
                     if (latestAppVersion > getCurrentVersionCode()) {
-                        //showUpdateAppDialog();
+                        showUpdateAppDialog();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Something went wrong please try again",
+                    Toast.makeText(MainActivity.this, "Failed to fetch version",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -902,7 +900,7 @@ public class MainActivity extends AppCompatActivity
      * @return onClick status
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_notifications) {
             intent = new Intent(MainActivity.this, NotificationsActivity.class);
